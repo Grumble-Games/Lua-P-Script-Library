@@ -1,7 +1,3 @@
-local Rcon = {}
-
-Rcon.Test = function Test()
-    print("test")
+function test()
+    print("Nutsack")
 end
-
-return Rcon
