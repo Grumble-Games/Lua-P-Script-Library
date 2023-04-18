@@ -1,3 +1,5 @@
-function Test()
-  print("test")
+local Rcon = {}
+
+Rcon.Test = function Test()
+    print("test")
 end
