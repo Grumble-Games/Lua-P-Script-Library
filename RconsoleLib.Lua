@@ -1,3 +1,3 @@
-function test()
-    print("Nutsack")
+function test(custom)
+    print(custom)
 end
