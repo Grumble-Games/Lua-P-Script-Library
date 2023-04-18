@@ -34,11 +34,11 @@ function Load(Name, IncludeTime, PersistantTextColor, Description, InputTxt, Use
 		rconsoleprint("[", "@@RED@@", "ERROR", PersistantTextColor,  "]: ", Text)
 	end
 
-	function InputInit()
+	function InputInit(Sendto)
 		rconsoleprint(InputTxt)
 
 		local Input = rconsoleinput()
-		return Input
+		loadstring(Sendto .. " = " .. Input)
 	end
 
 	rconsoleprint(PersistantTextColor)
@@ -49,7 +49,8 @@ function Load(Name, IncludeTime, PersistantTextColor, Description, InputTxt, Use
 	end
 
 	if UseCmds == true then
-		InputInit()
+		InputInit(_G.Test)
+		print(_G.Test)
 		if Debug == true then
 			print("Loaded Command!")
 		end
