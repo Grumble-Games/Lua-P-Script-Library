@@ -1,8 +1,8 @@
 # Lua P Script library
 
-##Run this to load the library!
+Run this to load the library!
 
-###loadstring(game:HttpGet('https://raw.githubusercontent.com/John-Lardier/Lua-P-Script-Library/main/Lib.Lua')()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/John-Lardier/Lua-P-Script-Library/main/Lib.Lua')()
 
 The Locals
 
