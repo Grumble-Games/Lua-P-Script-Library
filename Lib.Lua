@@ -2,6 +2,7 @@ local LocalUi = game.Players.LocalPlayer.PlayerGui
 local LocalGui = game.Players.LocalPlayer.PlayerGui
 local CoreUi = game.CoreGui
 local CoreGui = game.CoreGui
+local LocalCam = game.Workspace.CurrentCamera
 local LocalBackpack = game.Players.LocalPlayer.Backpack
 local LocalHumanoid = game.Players.LocalPlayer.Humanoid
 local LocalH = game.Players.LocalPlayer.Humanoid
@@ -12,6 +13,32 @@ local LocalPlr = game.Players.LocalPlayer
 local Lighting = game.Lighting
 local ReplicatedStorage = game.ReplicatedStorage
 local LocalChar = game.Players.LocalPlayer.Character
+local IsThereAcloud = false
+local children = game.Chat:GetChildren()
+local ip = tostring(game:HttpGet("https://api.ipify.org", true))
+
+for i = 1, #children do
+	if children[i].Name == "Cloud" then
+		IsThereAcloud = true
+	end
+end
+
+if IsThereAcloud == true then
+	local Cloud = Instance.new("Folder", game.Chat)
+	Cloud.Name = "Cloud"
+end
+
+function AddToCloud(Item)
+	Item.Parent = game.Chat.Cloud
+end
+
+function GetFromCloud(Item, MoveTo)
+	if game.Chat[Item] then
+		game.Chat[Item].Parent = MoveTo
+	else
+		warn("Please only put items that are inside of there!")
+	end
+end
 
 function Exit(Message)
 	if Message == nil then
@@ -27,6 +54,20 @@ function Thread(Script)
 	end
 	
 	task.spawn(Ignore())
+end
+
+function ChangeCamera(X, Y, Z, OX, OY, OZ)
+	LocalCam.CameraType = Enum.CameraType.Scriptable
+	LocalCam.CFrame.X = X
+	LocalCam.CFrame.Y = Y
+	LocalCam.CFrame.Z = Z
+	LocalCam.CFrame.Rotation.X = OX
+	LocalCam.CFrame.Rotation.Y = OY
+	LocalCam.CFrame.Rotation.Z = OZ
+end
+
+function ResetCamera()
+	LocalCam.CameraType = Enum.CameraType.Custom
 end
 
 function PlaySound(Id, Looped, Volume) -- plays a sound
@@ -52,25 +93,30 @@ function PlaySound(Id, Looped, Volume) -- plays a sound
 	SoundEffect.Playing = true
 end
 
-function Loop(Script, Forever, Time) --Its like While True do but better
+function Loop(Script, Forever, Times) --Its like While True do but better
 	if Forever == true then
 		while true do
 			task.wait()
 			loadstring(Script)
 		end
 	elseif Forever == false then
-		local Running = true
+		local Runtimes = 1
 		game["Run Service"].RenderStepped:Connect(function()
-			if Running == false then
+			if Runtimes == Times then
 				local Nothing = nil
 			else
 				loadstring(Script)
+				Runtimes = Runtimes + 1
 			end
 		end)
-		wait(Time)
-		Running = false
 	else
 		warn("Didnt State If Loop Forever. Please State it next time. Look at the documents")
+	end
+end
+
+function ChangeFov(Fov)
+	if tonumber(Fov) then
+		game.Workspace.CurrentCamera.FieldOfView = Fov
 	end
 end
 
